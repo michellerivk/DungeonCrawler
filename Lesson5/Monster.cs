@@ -56,5 +56,7 @@ namespace Lesson5
         {
             return $"Monster : \nHP: {Hp} \tPower: {Power}";
         }
+
+        // Adding line for PR
     }
 }
