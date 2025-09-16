@@ -9,32 +9,21 @@ namespace Lesson5
 {
     public class Monster
     {
-        private static readonly Random rnd = new Random();
-        public int Hp { get; private set; }
-        public int Power { get; private set; }
-        public int XPgain { get; private set; }
+        public int Hp { get; protected set; }
+        public int Power { get; protected set; }
+        public int XPgain { get; protected set; }
 
-        public Monster(int roomNum) 
+        public Monster(int PowerMagnitute) 
         {
             Hp = 100;
-            Power = GetPowerValue(roomNum);
-            XPgain = GetXPGainValue();
+            Power = RandomUtils.NumberRandomizer(PowerMagnitute + 5, PowerMagnitute + 15);
+            XPgain = RandomUtils.NumberRandomizer(10, 15) * Power;
         }
 
         public Monster()
         {
             Hp = 0;
             Power = 0;
-        }
-
-        private int GetPowerValue(int roomNum)
-        {
-            return rnd.Next(roomNum + 5, roomNum + 15);
-        }
-
-        private int GetXPGainValue()
-        {
-            return rnd.Next(10, 15) * Power;
         }
 
         public void AttackPlayer(Player player)

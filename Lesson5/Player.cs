@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -9,6 +10,8 @@ namespace Lesson5
 {
     public class Player
     {
+        const int powerBoost = 3; const int hpBoost = 4;
+
         public int Hp { get; private set; }
         public int Level { get; private set; }
         public int Power { get; private set; }
@@ -41,15 +44,15 @@ namespace Lesson5
 
         public void BoostStats(int xp)
         {
-            IncreaseLevel(xp);
+            TryIncreaseLevel(xp);
 
-            Power += 3;
+            Power += powerBoost;
 
             RestoreHP();
-            Hp += 4;
+            Hp += hpBoost;
         }
 
-        public void IncreaseLevel(int xp)
+        public void TryIncreaseLevel(int xp)
         {
             CurrentXP += xp;
 
