@@ -12,7 +12,12 @@ namespace Lesson5
 
         public EliteMonster(int PowerMagnitute) : base(PowerMagnitute)
         {
-            _resurrections = RandomUtils.DefaultNumberRandomizer();
+            _resurrections = RandomUtils.OneToFiveNumberRandomizer();
+        }
+
+        public override string ReturnMonsterType()
+        {
+            return $"Elite Monster ♔";
         }
     }
 }

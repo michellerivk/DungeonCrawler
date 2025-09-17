@@ -10,9 +10,9 @@ namespace Lesson5
     {
         private readonly int _powerIncrease;
 
-        public TrainingRoom(int roomNumber, int x, int y, int power) : base(roomNumber, x, y)
+        public TrainingRoom(int roomNumber, int x, int y) : base(roomNumber, x, y)
         {
-            _powerIncrease = RandomUtils.DefaultNumberRandomizer();
+            _powerIncrease = RandomUtils.NumberRandomizer(50,70);
         }
     }
 }

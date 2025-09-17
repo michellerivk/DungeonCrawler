@@ -10,7 +10,12 @@ namespace Lesson5
     {
         public RageMonster(int PowerMagnitute) : base(PowerMagnitute)
         {
-            Power += RandomUtils.DefaultNumberRandomizer();
+            Power += RandomUtils.OneToFiveNumberRandomizer();
+        }
+
+        public override string ReturnMonsterType()
+        {
+            return $"Rage Monster ~Rawwr~";
         }
     }
 }

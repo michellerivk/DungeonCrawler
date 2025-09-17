@@ -45,5 +45,10 @@ namespace Lesson5
         {
             return $"Monster : \nHP: {Hp} \tPower: {Power}";
         }
+
+        public virtual string ReturnMonsterType()
+        {
+            return $"Regular Monster";
+        }
     }
 }

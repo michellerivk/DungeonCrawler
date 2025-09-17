@@ -26,7 +26,7 @@ namespace Lesson5
 
         public override string ToString()
         {
-            return $"{Name}";
+            return $"{Name} with monster: {Monster.ReturnMonsterType()}";
         }
     }
 }

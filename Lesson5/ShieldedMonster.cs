@@ -12,7 +12,12 @@ namespace Lesson5
     
         public ShieldedMonster(int PowerMagnitute) : base(PowerMagnitute)
         {
-            _shieldAmount = RandomUtils.DefaultNumberRandomizer();
+            _shieldAmount = RandomUtils.OneToFiveNumberRandomizer();
+        }
+
+        public override string ReturnMonsterType()
+        {
+            return $"Shielded Monster 🛡️";
         }
     }
 }

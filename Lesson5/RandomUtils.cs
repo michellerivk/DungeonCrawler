@@ -14,10 +14,10 @@ namespace Lesson5
             return rnd.Next(startNum, endNUm);
         }
 
-        public static int DefaultNumberRandomizer()
+        public static int OneToFiveNumberRandomizer()
         {
             Random rnd = new Random();
-            return rnd.Next(1, 5);
+            return rnd.Next(1, 6);
         }
     }
 }
