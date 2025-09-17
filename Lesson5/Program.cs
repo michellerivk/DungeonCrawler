@@ -10,18 +10,15 @@
     {
         static void Main(string[] args)
         {
-            const int startRandNum = 1;
-            const int endRandNum = 10;
 
             Player player = new Player();
             int tries = 0;
 
-            Room[,] dungeon = new Room[RandomUtils.NumberRandomizer(startRandNum, endRandNum), 
-                                       RandomUtils.NumberRandomizer(startRandNum, endRandNum)];
+            Dungeon dungeon = new Dungeon();
             int roomNumber;
 
             Console.WriteLine($"The size of the room is: " +
-                              $"[{dungeon.GetLength(0) - 1}][{dungeon.GetLength(1) - 1}]");
+                              $"[{dungeon.GetRows() - 1}][{dungeon.GetColumns() - 1}]");
 
             var roomsBeat= new HashSet<(int y, int x)>();
 
@@ -29,86 +26,87 @@
             int y = 0;
             int x = 0;
 
-            while (y < dungeon.GetLength(0) - 1 || x < dungeon.GetLength(1) - 1)
+            while (y < dungeon.GetRows() - 1 || x < dungeon.GetColumns() - 1)
             {
-                    bool wasMonsterFaught = true;
-                    roomNumber = y * 2 + (x + y + 1);
-                    dungeon[y, x] = new Room(roomNumber, x, y);
+                bool wasMonsterFaught = true;
 
-                    Console.WriteLine(dungeon[y, x]);
+                roomNumber = y * 2 + (x + y + 1);
 
-                    if (tries > 9)
-                        break;
+                dungeon.AddRoom(roomNumber, x, y);
 
-                    player.RestoreHP();
-
-                    Monster roomMonster;
-
-                    if (roomsBeat.Contains((y,x)))
-                    {
-                        roomMonster = new Monster(); // Spawn dead monster
-                        wasMonsterFaught = false;
-                    }
-                    else
-                    {
-                        roomMonster = new Monster(roomNumber);
-                        roomMonster.RestoreHpAfterRound();
-                    }
-
-                    Console.WriteLine(roomMonster);
-                    Console.WriteLine(player);
-
-                    while (roomMonster.Hp > 0)
-                    {
-
-                        Console.WriteLine("Monster's HP: " + roomMonster.Hp);
-                        Console.WriteLine("Player's HP: " + player.Hp);
-
-                        wasMonsterFaught = true;
-
-                        if (player.Hp <= 0)
-                        {
-                            tries++;
-                            nextRoom = new int[] { 0, 0 };
-                            roomsBeat.Clear();
-                            
-                            break;
-                        }
-
-                        player.AttackMonster(roomMonster);
-
-                        if (roomMonster.Hp <= 0)
-                            break;
-
-                        roomMonster.AttackPlayer(player);
-                    }
-
-                    if (player.Hp > 0)
-                    {
-                        if (!wasMonsterFaught)
-                        {
-                            nextRoom = ChooseNextRoom(x, y, dungeon.GetLength(1), dungeon.GetLength(0));
-                            y = nextRoom[0];
-                            x = nextRoom[1];
-                            continue;
-                        }
-
-                        Console.WriteLine($"XP gained from fight: {roomMonster.XPgain}");
-                        player.BoostStats(roomMonster.XPgain);
-                        roomsBeat.Add((y,x));
-                        nextRoom = ChooseNextRoom(x,y, dungeon.GetLength(1), dungeon.GetLength(0));
-                    }
-
-                    y = nextRoom[0];
-                    x = nextRoom[1];
-                }
+                dungeon.PrintRoom(x, y);
 
                 if (tries > 9)
+                    break;
+
+                player.RestoreHP();
+
+                Monster roomMonster;
+
+                if (roomsBeat.Contains((y,x)))
                 {
-                    Console.WriteLine("The Player Lost 10 times :(");
-                    return;
+                    roomMonster = new Monster(); // Spawn dead monster
+                    wasMonsterFaught = false;
                 }
-            
+                else
+                {
+                    roomMonster = new Monster(roomNumber);
+                    roomMonster.RestoreHpAfterRound();
+                }
+
+                Console.WriteLine(roomMonster);
+                Console.WriteLine(player);
+
+                while (roomMonster.Hp > 0)
+                {
+
+                    Console.WriteLine("Monster's HP: " + roomMonster.Hp);
+                    Console.WriteLine("Player's HP: " + player.Hp);
+
+                    wasMonsterFaught = true;
+
+                    if (player.Hp <= 0)
+                    {
+                        tries++;
+                        nextRoom = new int[] { 0, 0 };
+                        roomsBeat.Clear();
+                            
+                        break;
+                    }
+
+                    player.AttackMonster(roomMonster);
+
+                    if (roomMonster.Hp <= 0)
+                        break;
+
+                    roomMonster.AttackPlayer(player);
+                }
+
+                if (player.Hp > 0)
+                {
+                    if (!wasMonsterFaught)
+                    {
+                        nextRoom = ChooseNextRoom(x, y, dungeon.GetColumns(), dungeon.GetRows());
+                        y = nextRoom[0];
+                        x = nextRoom[1];
+                        continue;
+                    }
+
+                    Console.WriteLine($"XP gained from fight: {roomMonster.XPgain}");
+                    player.BoostStats(roomMonster.XPgain);
+                    roomsBeat.Add((y,x));
+                    nextRoom = ChooseNextRoom(x,y, dungeon.GetColumns(), dungeon.GetRows());
+                }
+
+                y = nextRoom[0];
+                x = nextRoom[1];
+            }
+
+            if (tries > 9)
+            {
+                Console.WriteLine("The Player Lost 10 times :(");
+                return;
+            }
 
             Console.WriteLine("The Player Won!!");
         }

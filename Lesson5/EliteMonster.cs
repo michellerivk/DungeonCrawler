@@ -8,7 +8,7 @@ namespace Lesson5
 {
     public class EliteMonster : Monster
     {
-        private int _resurrections;
+        private readonly int _resurrections;
 
         public EliteMonster(int PowerMagnitute) : base(PowerMagnitute)
         {

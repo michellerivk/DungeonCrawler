@@ -8,7 +8,7 @@ namespace Lesson5
 {
     public class TrainingRoom : Room
     {
-        private int _powerIncrease;
+        private readonly int _powerIncrease;
 
         public TrainingRoom(int roomNumber, int x, int y, int power) : base(roomNumber, x, y)
         {

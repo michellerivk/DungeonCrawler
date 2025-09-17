@@ -13,8 +13,8 @@ namespace Lesson5
         const int maxShieldBonusAmount = 5; const int maxXpBonusAmount = 300;
 
 
-        private int _givenBonus;
-        private int _givenAmount;
+        private readonly int _givenBonus;
+        private readonly int _givenAmount;
 
         public TreasureRoom(int roomNumber, int x, int y) : base(roomNumber, x, y)
         {

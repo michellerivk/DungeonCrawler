@@ -8,7 +8,7 @@ namespace Lesson5
 {
     public class ShieldedMonster : Monster
     {
-        private int _shieldAmount;
+        private readonly int _shieldAmount;
     
         public ShieldedMonster(int PowerMagnitute) : base(PowerMagnitute)
         {
