@@ -104,7 +104,7 @@
 
             if (tries > 9)
             {
-                Console.WriteLine("The Player Lost 10 times :(");
+                Console.WriteLine("The Player Lost :(");
                 return;
             }
 
