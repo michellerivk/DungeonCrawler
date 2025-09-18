@@ -11,7 +11,8 @@ namespace Lesson5
         const int eliteMonster = 1; const int rageMonster = 2;
 
         public string Name { get; private set; }
-        public Monster Monster { get; private set; }
+        public Monster RoomMonster { get; private set; }
+        public readonly string Type = "Regular Room";
 
         public Room(int roomNumber, int x, int y)
         {
@@ -19,14 +20,16 @@ namespace Lesson5
 
             var monsterType = RandomUtils.NumberRandomizer(1, 4);
 
-            Monster = (monsterType == eliteMonster) ? (Monster)new EliteMonster(roomNumber) 
+            RoomMonster = (monsterType == eliteMonster) ? (Monster)new EliteMonster(roomNumber) 
                     : (monsterType == rageMonster) ? (Monster)new RageMonster(roomNumber)
                     : (Monster)new ShieldedMonster(roomNumber);
         }
 
+        public virtual void OnEnter(Player player) { }
+
         public override string ToString()
         {
-            return $"{Name} with monster: {Monster.ReturnMonsterType()}";
+            return $"{Name}: {Type}";
         }
     }
 }

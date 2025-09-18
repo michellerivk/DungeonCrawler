@@ -8,14 +8,19 @@ namespace Lesson5
 {
     public class RageMonster : Monster
     {
-        public RageMonster(int PowerMagnitute) : base(PowerMagnitute)
+        public new readonly string Type = "Rage Monster";
+        private readonly int _increasePower;
+
+        public RageMonster(int increasePower) : base(increasePower)
         {
-            Power += RandomUtils.OneToFiveNumberRandomizer();
+            _increasePower = RandomUtils.OneToFiveNumberRandomizer();
         }
 
-        public override string ReturnMonsterType()
+        public override void AttackPlayer(Player player)
         {
-            return $"Rage Monster ~Rawwr~";
+            player.TakeDamage(Power);
+            Power += _increasePower;
         }
+
     }
 }

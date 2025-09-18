@@ -11,39 +11,37 @@ namespace Lesson5
         const int startRandNum = 1;
         const int endRandNum = 10;
 
-        private readonly Room[,] _dungeon;
+        public readonly Room[,] DungeonObject;
 
         public Dungeon ()
         {
-            _dungeon = new Room[RandomUtils.NumberRandomizer(startRandNum, endRandNum),
+            DungeonObject = new Room[RandomUtils.NumberRandomizer(startRandNum, endRandNum),
                                 RandomUtils.NumberRandomizer(startRandNum, endRandNum)];
         }
 
         public int GetRows()
         {
-            return _dungeon.GetLength(0);
+            return DungeonObject.GetLength(0);
         }
 
         public int GetColumns()
         {
-            return _dungeon.GetLength (1);
+            return DungeonObject.GetLength (1);
         }
 
         public void AddRoom(int roomNumber, int x, int y)
         {
             int chance = RandomUtils.OneToFiveNumberRandomizer();
 
-            _dungeon[y, x] = (chance <= 2) ? new Room(roomNumber, x, y)
+            // 20% to get a regular room, 20% to get a training room, 10% to get a treasure room
+            DungeonObject[y, x] = (chance <= 2) ? new Room(roomNumber, x, y)
                            : (chance == 3 || chance == 4) ? (Room)new TrainingRoom(roomNumber, x, y)
                            : (Room)new TreasureRoom(roomNumber, x, y);
-
-
-            _dungeon[y, x] = new Room(roomNumber, x, y);
         }
 
         public void PrintRoom(int x, int y)
         {
-            Console.WriteLine(_dungeon[y, x]);
+            Console.WriteLine(DungeonObject[y, x]);
         }
     }
 }

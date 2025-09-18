@@ -8,16 +8,11 @@ namespace Lesson5
 {
     public class ShieldedMonster : Monster
     {
-        private readonly int _shieldAmount;
-    
+        public new readonly string Type = "Shielded Monster";
+
         public ShieldedMonster(int PowerMagnitute) : base(PowerMagnitute)
         {
-            _shieldAmount = RandomUtils.OneToFiveNumberRandomizer();
-        }
-
-        public override string ReturnMonsterType()
-        {
-            return $"Shielded Monster 🛡️";
+            Shields += RandomUtils.OneToFiveNumberRandomizer();
         }
     }
 }

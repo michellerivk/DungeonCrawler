@@ -11,7 +11,7 @@ namespace Lesson5
         public static int NumberRandomizer(int startNum, int endNUm)
         {
             Random rnd = new Random();
-            return rnd.Next(startNum, endNUm);
+            return rnd.Next(startNum, endNUm+1);
         }
 
         public static int OneToFiveNumberRandomizer()

@@ -8,16 +8,27 @@ namespace Lesson5
 {
     public class EliteMonster : Monster
     {
-        private readonly int _resurrections;
+        private int _resurrections;
+        public new readonly string Type = "Elite Monster";
 
         public EliteMonster(int PowerMagnitute) : base(PowerMagnitute)
         {
             _resurrections = RandomUtils.OneToFiveNumberRandomizer();
         }
 
-        public override string ReturnMonsterType()
+        public override void AfterDeath()
         {
-            return $"Elite Monster ♔";
+            if (_resurrections > 0)
+            {
+                Hp = 100;
+                _resurrections--;
+
+                Console.WriteLine($"The {Type} resurrects! ({_resurrections} resurrections left)");
+            }
+            else
+            {
+                Console.WriteLine($"The {Type} is finally dead! (No resurrections left)");
+            }
         }
     }
 }

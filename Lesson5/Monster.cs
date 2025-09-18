@@ -12,12 +12,15 @@ namespace Lesson5
         public int Hp { get; protected set; }
         public int Power { get; protected set; }
         public int XPgain { get; protected set; }
+        public readonly string Type = "Regular Monster";
+        public int Shields { get; protected set; }
 
         public Monster(int PowerMagnitute) 
         {
             Hp = 100;
             Power = RandomUtils.NumberRandomizer(PowerMagnitute + 5, PowerMagnitute + 15);
             XPgain = RandomUtils.NumberRandomizer(10, 15) * Power;
+            Shields = 0;
         }
 
         public Monster()
@@ -26,9 +29,11 @@ namespace Lesson5
             Power = 0;
         }
 
-        public void AttackPlayer(Player player)
+        public virtual void AttackPlayer(Player player)
         {
             player.TakeDamage(Power);
+            if (Hp <= 0)
+                AfterDeath();
         }
 
         public void TakeDamage(int attack)
@@ -41,14 +46,20 @@ namespace Lesson5
             Hp = 100;
         }
 
-        public override string ToString()
+        public void TryReduceShields()
         {
-            return $"Monster : \nHP: {Hp} \tPower: {Power}";
+            if (Shields > 0)
+                Shields--;
         }
 
-        public virtual string ReturnMonsterType()
+        public virtual void AfterDeath() { }
+
+        public override string ToString()
         {
-            return $"Regular Monster";
+            if (Hp == 0)
+                return $"Dead Monster";
+
+            return $"Monster : {Type} \nHP: {Hp} \tPower: {Power}";
         }
     }
 }

@@ -17,19 +17,21 @@ namespace Lesson5
         public int Power { get; private set; }
         public int CurrentXP { get; private set; }
         public int NeededXPforlevel { get; private set; }
+        public int Shields { get; private set; }
 
         public Player()
         {
-            Hp = 70;
+            Hp = 700;
             Level = 0;
             Power = 10;
             CurrentXP = 0;
+            Shields = 0;
             NeededXPforlevel = 100;
         }
 
         public void RestoreHP()
         {
-            Hp = 70;
+            Hp = 700;
         }
 
         public void AttackMonster(Monster monster)
@@ -63,12 +65,28 @@ namespace Lesson5
             }
         }
 
+        public void IncreaseShields(int shieldAmount)
+        {
+            Shields += shieldAmount;
+        }
+
+        public void TryReduceShields()
+        {
+            if (Shields > 0)
+                Shields--;
+        }
+
+        public void IncreasePower(int powerIncrease)
+        { 
+            Power += powerIncrease;
+        }
+
         public override string ToString()
         {
             int hp = Hp;
             if (hp < 0) hp = 0;
 
-            return $"Player: \nHP: {hp} \tPower: {Power} \tLevel: {Level} \t " +
+            return $"Player: \nHP: {hp} \tPower: {Power} \tLevel: {Level} \tShields: {Shields} \t " +
                 $"Needed XP for next level: {NeededXPforlevel - CurrentXP}";
         }
     }
