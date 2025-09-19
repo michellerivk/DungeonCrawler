@@ -56,14 +56,19 @@ namespace Lesson5
 
         public void TryIncreaseLevel(int xp)
         {
+            bool didLevelUp = false;
             CurrentXP += xp;
 
             while (CurrentXP >= NeededXPforlevel)
             {
                 CurrentXP -= NeededXPforlevel;
                 Level++;
-                Console.WriteLine($"WOHOOO!! The player leveled up and is now level: {Level}");
+                didLevelUp = true;
             }
+
+            if (didLevelUp) 
+                Console.WriteLine($"WOHOOO!! The player leveled up and is now level: {Level}");
+
         }
 
         public void IncreaseShields(int shieldAmount)
