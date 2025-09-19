@@ -21,7 +21,7 @@ namespace Lesson5
 
         public Player()
         {
-            Hp = 700;
+            Hp = 100;
             Level = 0;
             Power = 10;
             CurrentXP = 0;
@@ -31,7 +31,7 @@ namespace Lesson5
 
         public void RestoreHP()
         {
-            Hp = 700;
+            Hp = 100;
         }
 
         public void AttackMonster(Monster monster)

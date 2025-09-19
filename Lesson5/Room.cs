@@ -18,11 +18,12 @@ namespace Lesson5
         {
             Name = $"~ Room {roomNumber}: \t[{y},{x}] ~";
 
-            var monsterType = RandomUtils.NumberRandomizer(0, 3);
+            var monsterType = RandomUtils.NumberRandomizer(0, 4);
 
             RoomMonster = (monsterType == (int)MonsterKind.eliteMonster) ? (Monster)new EliteMonster(roomNumber) 
                         : (monsterType == (int)MonsterKind.rageMonster) ? (Monster)new RageMonster(roomNumber)
-                        : (Monster)new ShieldedMonster(roomNumber);
+                        : (monsterType == (int)MonsterKind.shieldedMonster) ? (Monster)new ShieldedMonster(roomNumber)
+                        : new Monster(roomNumber);
         }
 
         public virtual void OnEnter(Player player) { }

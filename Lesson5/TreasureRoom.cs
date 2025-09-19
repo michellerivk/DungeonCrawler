@@ -8,8 +8,8 @@ namespace Lesson5
 {
     public class TreasureRoom : Room
     {
-        const int minShieldBonusAmount = 1; const int minXpBonusAmount = 100;
-        const int maxShieldBonusAmount = 5; const int maxXpBonusAmount = 300;
+        private const int minShieldBonusAmount = 1; private const int minXpBonusAmount = 100;
+        private const int maxShieldBonusAmount = 5; private const int maxXpBonusAmount = 300;
 
         private enum BonusName { Shield, XP }
         public override string Type => "Treasure Room";

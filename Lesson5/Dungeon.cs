@@ -8,8 +8,8 @@ namespace Lesson5
 {
     public class Dungeon
     {
-        const int minRooms = 1;
-        const int maxRooms = 10;
+        private const int minRooms = 1;
+        private const int maxRooms = 10;
 
         private readonly int _rows;
         private readonly int _colums;
@@ -144,7 +144,7 @@ namespace Lesson5
             return true;
         }
 
-        public void AddRoom(int roomNumber, int x, int y)
+        private void AddRoom(int roomNumber, int x, int y)
         {
             int chance = RandomUtils.OneToFiveNumberRandomizer();
 
@@ -154,12 +154,12 @@ namespace Lesson5
                            : (Room)new TreasureRoom(roomNumber, x, y);
         }
 
-        public void PrintRoom(int x, int y)
+        private void PrintRoom(int x, int y)
         {
             Console.WriteLine(DungeonObject[y, x]);
         }
 
-        public int[] ChooseNextRoom(int x, int y, int xLength, int yLength)
+        private int[] ChooseNextRoom(int x, int y, int xLength, int yLength)
         {
 
             Console.WriteLine($"Please choose your next room:\n");
@@ -181,7 +181,7 @@ namespace Lesson5
 
         }
 
-        public Dictionary<string, int[]> ListOptionsForMoving(int x, int y, int xLength, int yLength)
+        private Dictionary<string, int[]> ListOptionsForMoving(int x, int y, int xLength, int yLength)
         {
             Dictionary<string, int[]> options = new Dictionary<string, int[]>();
             if (y - 1 >= 0)
