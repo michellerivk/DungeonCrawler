@@ -8,7 +8,7 @@ namespace Lesson5
 {
     public class Room
     {
-        const int eliteMonster = 1; const int rageMonster = 2;
+        private enum MonsterKind { eliteMonster, rageMonster, shieldedMonster }
 
         public string Name { get; private set; }
         public Monster RoomMonster { get; private set; }
@@ -18,11 +18,11 @@ namespace Lesson5
         {
             Name = $"~ Room {roomNumber}: \t[{y},{x}] ~";
 
-            var monsterType = RandomUtils.NumberRandomizer(1, 4);
+            var monsterType = RandomUtils.NumberRandomizer(0, 3);
 
-            RoomMonster = (monsterType == eliteMonster) ? (Monster)new EliteMonster(roomNumber) 
-                    : (monsterType == rageMonster) ? (Monster)new RageMonster(roomNumber)
-                    : (Monster)new ShieldedMonster(roomNumber);
+            RoomMonster = (monsterType == (int)MonsterKind.eliteMonster) ? (Monster)new EliteMonster(roomNumber) 
+                        : (monsterType == (int)MonsterKind.rageMonster) ? (Monster)new RageMonster(roomNumber)
+                        : (Monster)new ShieldedMonster(roomNumber);
         }
 
         public virtual void OnEnter(Player player) { }

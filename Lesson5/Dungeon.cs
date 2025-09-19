@@ -123,7 +123,9 @@ namespace Lesson5
                     if (!wasMonsterFaught) 
                     { 
                         nextRoom = ChooseNextRoom(x, y, _colums, _rows); 
-                        y = nextRoom[0]; x = nextRoom[1]; continue;
+                        y = nextRoom[0]; 
+                        x = nextRoom[1]; 
+                        continue;
                     } 
                     Console.WriteLine($"XP gained from fight: {roomMonster.XPgain}"); 
                     player.BoostStats(roomMonster.XPgain); roomsBeat.Add((y, x)); 
@@ -146,9 +148,9 @@ namespace Lesson5
         {
             int chance = RandomUtils.OneToFiveNumberRandomizer();
 
-            // 20% to get a regular room, 20% to get a training room, 10% to get a treasure room
-            DungeonObject[y, x] = (chance <= 2) ? new Room(roomNumber, x, y)
-                           : (chance == 3 || chance == 4) ? (Room)new TrainingRoom(roomNumber, x, y)
+            // 60% to get a regular room, 20% to get a special room
+            DungeonObject[y, x] = (chance <= 3) ? new Room(roomNumber, x, y)
+                           : (chance == 4) ? (Room)new TrainingRoom(roomNumber, x, y)
                            : (Room)new TreasureRoom(roomNumber, x, y);
         }
 
