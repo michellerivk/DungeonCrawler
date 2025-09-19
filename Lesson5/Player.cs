@@ -62,6 +62,7 @@ namespace Lesson5
             {
                 CurrentXP -= NeededXPforlevel;
                 Level++;
+                Console.WriteLine($"WOHOOO!! The player leveled up and is now level: {Level}");
             }
         }
 

@@ -35,6 +35,8 @@
 
                 dungeon.AddRoom(roomNumber, x, y);
 
+                Room room = dungeon.DungeonObject[y, x];
+
                 dungeon.PrintRoom(x, y);
 
                 if (tries > 9)
@@ -51,17 +53,23 @@
                 }
                 else
                 {
-                    roomMonster = dungeon.DungeonObject[y, x].RoomMonster;
-                    roomMonster.RestoreHpAfterRound();
+                    roomMonster = room.RoomMonster;
+                    roomMonster.TryRestoreHpAfterRound();
                 }
 
-                Console.WriteLine(roomMonster);
+                string monsterPrint = (room.Type != "Regular Room") ? "No Monster Here" : roomMonster.ToString();
+
+                Console.WriteLine(monsterPrint);
                 Console.WriteLine(player);
 
                 round = 0;
 
+                if (roomMonster.IsDead)
+                    room.OnEnter(player);
+
                 while (roomMonster.Hp > 0)
                 {
+
                     Console.WriteLine($"\nRound: {round}");
 
                     Console.WriteLine($"Monster's HP: {roomMonster.Hp}");
@@ -80,12 +88,10 @@
 
                     // Player Attacks
                     if (roomMonster.Shields != 0)
-                    {
                         roomMonster.TryReduceShields();
-                        continue;
-                    }
 
-                    player.AttackMonster(roomMonster);
+                    else
+                        player.AttackMonster(roomMonster);
                     
 
                     if (roomMonster.Hp <= 0)
@@ -93,12 +99,10 @@
 
                     // Monster attacks
                     if (player.Shields != 0)
-                    {
                         player.TryReduceShields();
-                        continue;
-                    }
 
-                    roomMonster.AttackPlayer(player);
+                    else
+                     roomMonster.AttackPlayer(player);
 
                     round++;
                 }
@@ -115,7 +119,7 @@
 
                     Console.WriteLine($"XP gained from fight: {roomMonster.XPgain}");
                     player.BoostStats(roomMonster.XPgain);
-                    roomsBeat.Add((x,y));
+                    roomsBeat.Add((y,x));
                     nextRoom = ChooseNextRoom(x,y, dungeon.GetColumns(), dungeon.GetRows());
                 }
 

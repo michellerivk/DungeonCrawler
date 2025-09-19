@@ -12,7 +12,7 @@ namespace Lesson5
         const int maxShieldBonusAmount = 5; const int maxXpBonusAmount = 300;
 
         private enum BonusName { Shield, XP }
-        public new readonly string Type = "Treasure Room";
+        public override string Type => "Treasure Room";
         private readonly int _givenBonus;
         private readonly int _givenAmount;
 
@@ -20,8 +20,10 @@ namespace Lesson5
         {
             _givenBonus = (int)((RandomUtils.NumberRandomizer(0, 1) == 0) ? BonusName.Shield : BonusName.XP);
 
-            _givenAmount = (_givenBonus == 1) ? RandomUtils.NumberRandomizer(minShieldBonusAmount, maxShieldBonusAmount) 
+            _givenAmount = (_givenBonus == 0) ? RandomUtils.NumberRandomizer(minShieldBonusAmount, maxShieldBonusAmount) 
                                               : RandomUtils.NumberRandomizer(minXpBonusAmount, maxXpBonusAmount);
+
+            RoomMonster.KillMonster();
         }
 
         public override void OnEnter(Player player) 
@@ -34,7 +36,7 @@ namespace Lesson5
             else // Player gets XP
             {
                 player.TryIncreaseLevel(_givenAmount);
-                Console.WriteLine($"WOOHOO!! The player gained {_givenAmount} shields");
+                Console.WriteLine($"WOOHOO!! The player gained {_givenAmount} XP");
             }
         }
     }

@@ -8,16 +8,15 @@ namespace Lesson5
 {
     public static class RandomUtils
     {
+        private static  readonly Random _rnd = new Random();
         public static int NumberRandomizer(int startNum, int endNUm)
         {
-            Random rnd = new Random();
-            return rnd.Next(startNum, endNUm+1);
+            return _rnd.Next(startNum, endNUm+1);
         }
 
         public static int OneToFiveNumberRandomizer()
         {
-            Random rnd = new Random();
-            return rnd.Next(1, 6);
+            return _rnd.Next(1, 6);
         }
     }
 }

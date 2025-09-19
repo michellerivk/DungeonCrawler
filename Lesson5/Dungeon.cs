@@ -8,15 +8,15 @@ namespace Lesson5
 {
     public class Dungeon
     {
-        const int startRandNum = 1;
-        const int endRandNum = 10;
+        const int minRooms = 1;
+        const int maxRooms = 10;
 
         public readonly Room[,] DungeonObject;
 
         public Dungeon ()
         {
-            DungeonObject = new Room[RandomUtils.NumberRandomizer(startRandNum, endRandNum),
-                                RandomUtils.NumberRandomizer(startRandNum, endRandNum)];
+            DungeonObject = new Room[RandomUtils.NumberRandomizer(minRooms, maxRooms),
+                                RandomUtils.NumberRandomizer(minRooms, maxRooms)];
         }
 
         public int GetRows()

@@ -12,7 +12,7 @@ namespace Lesson5
 
         public string Name { get; private set; }
         public Monster RoomMonster { get; private set; }
-        public readonly string Type = "Regular Room";
+        public virtual string Type => "Regular Room";
 
         public Room(int roomNumber, int x, int y)
         {
