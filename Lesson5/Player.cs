@@ -17,7 +17,7 @@ namespace Lesson5
 
         public Player()
         {
-            Hp = 70;
+            Hp = 100;
             Level = 0;
             Power = 10;
             CurrentXP = 0;
@@ -26,7 +26,7 @@ namespace Lesson5
 
         public void RestoreHP()
         {
-            Hp = 70;
+            Hp = 100;
         }
 
         public void AttackMonster(Monster monster)
@@ -68,5 +68,7 @@ namespace Lesson5
             return $"Player: \nHP: {hp} \tPower: {Power} \tLevel: {Level} \t " +
                 $"Needed XP for next level: {NeededXPforlevel - CurrentXP}";
         }
+
+        // Adding line for PR
     }
 }
