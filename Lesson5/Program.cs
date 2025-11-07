@@ -17,11 +17,11 @@
 
             if (didWin)
             {
-                Console.WriteLine("The Player Won!!");
+                Console.WriteLine("You Won!!");
                 return;
             }
 
-            Console.WriteLine("The Player Won!!");
+            Console.WriteLine("You Lost :(");
         }
     }
 }
