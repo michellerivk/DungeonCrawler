@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DoorRoom.cs" />
+    <Compile Include="LootSystem.cs" />
     <Compile Include="Dungeon.cs" />
     <Compile Include="EliteMonster.cs" />
     <Compile Include="Monster.cs" />
