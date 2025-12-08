@@ -11,6 +11,8 @@
         static void Main(string[] args)
         {
             Player player = new Player();
+            player.RegisterToLootSystem();
+
             Dungeon dungeon = new Dungeon();
 
             bool didWin = dungeon.RunDungeon(player);
