@@ -43,11 +43,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MonsterController.cs" />
+    <Compile Include="MonsterView.cs" />
+    <Compile Include="PlayerController.cs" />
+    <Compile Include="PlayerView.cs" />
+    <Compile Include="DungeonController.cs" />
+    <Compile Include="GameController.cs" />
+    <Compile Include="DungeonView.cs" />
+    <Compile Include="DoorRoom.cs" />
+    <Compile Include="LootSystem.cs" />
+    <Compile Include="Dungeon.cs" />
+    <Compile Include="EliteMonster.cs" />
     <Compile Include="Monster.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RageMonster.cs" />
+    <Compile Include="RandomUtils.cs" />
     <Compile Include="Room.cs" />
+    <Compile Include="RoomController.cs" />
+    <Compile Include="RoomView.cs" />
+    <Compile Include="ShieldedMonster.cs" />
+    <Compile Include="TrainingRoom.cs" />
+    <Compile Include="TreasureRoom.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

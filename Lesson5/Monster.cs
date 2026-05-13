@@ -9,16 +9,20 @@ namespace Lesson5
 {
     public class Monster
     {
-        private static readonly Random rnd = new Random();
-        public int Hp { get; private set; }
-        public int Power { get; private set; }
-        public int XPgain { get; private set; }
+        public int Hp { get; protected set; }
+        public int Power { get; protected set; }
+        public int XPgain { get; protected set; }
+        public virtual string Type => "Regular Monster";
+        public int Shields { get; protected set; }
+        public bool IsDead { get; protected set; }
 
-        public Monster(int roomNum) 
+        public Monster(int PowerMagnitute) 
         {
             Hp = 100;
-            Power = GetPowerValue(roomNum);
-            XPgain = GetXPGainValue();
+            Power = RandomUtils.NumberRandomizer(PowerMagnitute + 5, PowerMagnitute + 15);
+            XPgain = RandomUtils.NumberRandomizer(10, 15) * Power;
+            Shields = 0;
+            IsDead = false;
         }
 
         public Monster()
@@ -27,17 +31,7 @@ namespace Lesson5
             Power = 0;
         }
 
-        private int GetPowerValue(int roomNum)
-        {
-            return rnd.Next(roomNum + 5, roomNum + 15);
-        }
-
-        private int GetXPGainValue()
-        {
-            return rnd.Next(10, 15) * Power;
-        }
-
-        public void AttackPlayer(Player player)
+        public virtual void AttackPlayer(Player player)
         {
             player.TakeDamage(Power);
         }
@@ -45,16 +39,38 @@ namespace Lesson5
         public void TakeDamage(int attack)
         {
             Hp -= attack;
+            if (Hp <= 0)
+                AfterDeath();
         }
 
-        public void RestoreHpAfterRound()
+        public void TryRestoreHpAfterRound()
         {
-            Hp = 100;
+            if (!IsDead)
+                Hp = 100;
         }
+
+        public void TryReduceShields()
+        {
+            if (Shields > 0)
+                Shields--;
+        }
+
+        public virtual void AfterDeath() { }
 
         public override string ToString()
         {
-            return $"Monster : \nHP: {Hp} \tPower: {Power}";
+            if (Hp == 0)
+                return $"Dead Monster";
+
+            return $"Monster : {Type} \nHP: {Hp} \tPower: {Power}";
+        }
+
+        public void KillMonster()
+        {
+            Hp = 0;
+            Power = 0;
+            XPgain = 0;
+            IsDead = true;
         }
 
         // Adding line for PR
