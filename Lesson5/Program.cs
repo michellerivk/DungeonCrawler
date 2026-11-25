@@ -10,18 +10,8 @@
     {
         static void Main(string[] args)
         {
-            Player player = new Player();
-            Dungeon dungeon = new Dungeon();
-
-            bool didWin = dungeon.RunDungeon(player);
-
-            if (didWin)
-            {
-                Console.WriteLine("You Won!!");
-                return;
-            }
-
-            Console.WriteLine("You Lost :(");
+            var gameController = new GameController();
+            gameController.StartEventLoop();
         }
     }
 }
