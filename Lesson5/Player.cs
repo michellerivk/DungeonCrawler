@@ -21,6 +21,8 @@ namespace Lesson5
         public bool HasKey { get; private set; }
         public int MaxHp { get; private set; } = 100;
 
+        public event Action<string> PlayerMessage;
+
         public Player()
         {
             Hp = MaxHp;
@@ -34,7 +36,7 @@ namespace Lesson5
 
         public void RestoreHP()
         {
-            Hp = 100;
+            Hp = MaxHp;
         }
 
         public void AttackMonster(Monster monster)
@@ -81,9 +83,8 @@ namespace Lesson5
                 didLevelUp = true;
             }
 
-            if (didLevelUp) 
-                Console.WriteLine($"WOHOOO!! The player leveled up and is now level: {Level}");
-
+            if (didLevelUp)
+                PlayerMessage?.Invoke($"WOHOOO!! The player leveled up and is now level: {Level}");
         }
 
         public void IncreaseShields(int shieldAmount)
@@ -98,7 +99,7 @@ namespace Lesson5
         }
 
         public void IncreasePower(int powerIncrease)
-        { 
+        {
             Power += powerIncrease;
         }
 
@@ -108,45 +109,47 @@ namespace Lesson5
             if (hp < 0) hp = 0;
 
             return $"Player: \nHP: {hp} \tPower: {Power} \tLevel: {Level} \tShields: {Shields} \t " +
-                $"Needed XP for next level: {NeededXPforlevel - CurrentXP}";
+                   $"Needed XP for next level: {NeededXPforlevel - CurrentXP}";
         }
+
         public void RegisterToLootSystem()
         {
             LootSystem.Instance.LootGranted += OnLootGranted;
         }
+
         private void OnLootGranted(LootType lootType, int amount)
         {
             switch (lootType)
             {
                 case LootType.Shield:
                     IncreaseShields(amount);
-                    Console.WriteLine($"Loot: Player received {amount} shields.");
+                    PlayerMessage?.Invoke($"Loot: Player received {amount} shields.");
                     break;
 
                 case LootType.Power:
                     IncreasePower(amount);
-                    Console.WriteLine($"Loot: Player's power increased by {amount}.");
+                    PlayerMessage?.Invoke($"Loot: Player's power increased by {amount}.");
                     break;
 
                 case LootType.Heal:
                     Heal(amount);
-                    Console.WriteLine($"Loot: Player healed {amount} HP. (HP: {Hp}/{MaxHp})");
+                    PlayerMessage?.Invoke($"Loot: Player healed {amount} HP. (HP: {Hp}/{MaxHp})");
                     break;
 
                 case LootType.MaxHealthIncrease:
                     IncreaseMaxHealth(amount);
-                    Console.WriteLine($"Loot: Player's max HP increased by {amount}. (Max HP: {MaxHp})");
+                    PlayerMessage?.Invoke($"Loot: Player's max HP increased by {amount}. (Max HP: {MaxHp})");
                     break;
 
                 case LootType.Key:
                     if (!HasKey)
                     {
                         HasKey = true;
-                        Console.WriteLine("Loot: Player found a key! Some doors might now be unlocked.");
+                        PlayerMessage?.Invoke("Loot: Player found a key! Some doors might now be unlocked.");
                     }
                     else
                     {
-                        Console.WriteLine("Loot: Another key found, but you already have one.");
+                        PlayerMessage?.Invoke("Loot: Another key found, but you already have one.");
                     }
                     break;
             }
